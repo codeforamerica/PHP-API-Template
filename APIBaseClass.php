@@ -58,4 +58,46 @@ class APIBaseClass {
 	public function delete($path, $data, $headers = null) {
 		return $this->_request($path, 'DELETE', $data, $headers);
 	}
+	
+	private function _apiHelper($path, $params)
+	{
+		$params['format'] = 'json';
+		$json = $this->get($path, $params, array('Accept: application/json'));
+		return $json == null ? null : json_decode($json, true);
+	}
+	
+	public function do_query($query_path,$params,$return_param)
+	{
+	// query path is location to api query, params is either a string (if only one param) or an
+	// associtative array, $return_param is the name of the parameter to lookfor and display...
+	// what is params ? if only a single then use this code
+	// require everyone to pass an associtative array, even if only requesting a single value ??
+		
+		if(!is_array($params){
+		// allow developer to pass paramname,attribute
+			unset($params);
+			 $one_param = explode(',',$params));
+			 if(count($one_param) == 2){
+			 	
+			 	$params[$one_param[0]] = $one_param[1];
+			 	unset($one_param);
+			 //}else{
+			 	//foreach($one_param as $key=>$value){
+			 	// ideally allow for developers to pass lists like param:value,param2:value2 - but
+			 	// not sure about issues with escaping .. something to explore (might get in trouble using commas, colons etc.	
+			 	//}	
+			 }
+		}
+		
+		$data = $this->_apiHelper($query_path, $params);
+		return ($data == null 
+				? null 
+				: (is_array($data) && array_key_exists($return_param, $data)
+					? array_key_exists($return_param, $data) 
+						? $data[$return_param] 
+						: array()
+					: array()
+				)
+				);
+	}
 }
