@@ -2,7 +2,10 @@
 class APIBaseClass {
 	private $_root, $_http;
 	
-	public function __construct($server, $http = false) {
+	// removing construct method to allow the APIBaseClass to make a 'new_request'
+	// api libraries extend this base class, and then call self::new_request('http://apikeyurl.com');
+	
+	public function new_request($server, $http = false) {
 		$this->_root = $server;
 		if($http) {
 			$this->_http = $http;
