@@ -4,8 +4,8 @@
 // Base API Class
 require 'APIBaseClass.php';
 // Custom API Class
-require 'example_api.php';
+require 'api_class_template.php';
 
-$new = new FCCApi();
+$new = new yourApi();
 // Debug information
 die(print_r($new).print_r(get_object_vars($new)).print_r(get_class_methods(get_class($new))));
