@@ -1,7 +1,5 @@
 <?php
 
-require 'connection.class.php';
-
 /**
  *
  *
@@ -15,6 +13,8 @@ require 'connection.class.php';
   
   Make 'new_request' more rhobust?
  */
+
+ 
 class FCCApi extends APIBaseClass{
 
 	public function __construct()
