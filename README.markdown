@@ -10,6 +10,8 @@ Usage
 	include('my_API_lib.php');
  
 	new my_API_lib('http://myurl.com');
+        // or
+        new my_API_lib();
  
 How to Write your API Classes
 =============================
