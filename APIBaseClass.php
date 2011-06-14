@@ -79,7 +79,7 @@ class APIBaseClass {
 			 $one_param = explode(',',$params));
                          unset($params);
 			 foreach($one_param as $key=>$value){
-                                 $temp = explode('<=>',$value)
+                                 $temp = explode('<=>',$value);
                                    foreach($temp as $value2)
                                     $params [$key]=$value2;
 			 	// separate each key value pair with commas, seperate the keyname from the value with a <=>
