@@ -75,17 +75,15 @@ class APIBaseClass {
 		
 		if(!is_array($params){
 		// allow developer to pass paramname,attribute
-			unset($params);
+			 
 			 $one_param = explode(',',$params));
-			 if(count($one_param) == 2){
-			 	
-			 	$params[$one_param[0]] = $one_param[1];
-			 	unset($one_param);
-			 //}else{
-			 	//foreach($one_param as $key=>$value){
-			 	// ideally allow for developers to pass lists like param:value,param2:value2 - but
-			 	// not sure about issues with escaping .. something to explore (might get in trouble using commas, colons etc.	
-			 	//}	
+                         unset($params);
+			 foreach($one_param as $key=>$value){
+                                 $temp = explode('<=>',$value)
+                                   foreach($temp as $value2)
+                                    $params [$key]=$value2;
+			 	// separate each key value pair with commas, seperate the keyname from the value with a <=>
+			 	}	
 			 }
 		}
 		
