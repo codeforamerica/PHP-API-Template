@@ -69,23 +69,17 @@ class APIBaseClass {
 	public function do_query($query_path,$params,$return_param)
 	{
 	// query path is location to api query, params is either a string (if only one param) or an
-	// associtative array, $return_param is the name of the parameter to lookfor and display...
-	// what is params ? if only a single then use this code
-	// require everyone to pass an associtative array, even if only requesting a single value ??
-		
-		if(!is_array($params){
-		// allow developer to pass paramname,attribute
-			 
-			 $one_param = explode(',',$params));
-                         unset($params);
-			 foreach($one_param as $key=>$value){
-                                 $temp = explode('<=>',$value);
-                                   foreach($temp as $value2)
-                                    $params [$key]=$value2;
+	// associtative array, $return_param is the name of the parameter to lookfor and display...	
+		if(!is_array($params)){
+		// allow developer to pass paramname<=>attribute might want to use something other than a comma for pair seperation
+			 foreach(explode(',',$params) as $key=>$value){
+             	if($key==0)unset($params);
+                foreach(explode('<=>',$value) as $value2)
+                	$params [$value2[0]]=$value2[1];
 			 	// separate each key value pair with commas, seperate the keyname from the value with a <=>
 			 	}	
 			 }
-		}
+		
 		
 		$data = $this->_apiHelper($query_path, $params);
 		return ($data == null 
