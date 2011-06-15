@@ -8,20 +8,25 @@
             parent::__construct('Connection test');
         }
             
-        function testSimpleGet() {
+        function testGetFunction() {
             $x = new APIBaseClass();
+            // TO DO, use test endpoint
             $x->new_request('x.iriscouch.com');
             
-            // I'd like to assert the member variables here...but they are private
+            $input = array(
+              '/murals/02958ab3d23123d92f6553c75e00fffe',
+              '',
+              0,
+              999,
+              array()
+            );
             
-            // This get has no data
-            $resp = $x->get('/murals/02958ab3d23123d92f6553c75e00fffe','');
-            
-            // Decode the response
-            $resp_json = json_decode($resp);
-            
-            // See if the ID returned is the ID I asked for
-            $this->assertEqual($resp_json->_id, '02958ab3d23123d92f6553c75e00fffe');
+            foreach ($input as $i) {
+                $resp = $x->get($i, '');
+                // This fails as it makes calls to URL with integers in it
+                $this->assertIsA($resp, 'string');
+                // TO DO, check the format of this string
+            }
         }
         
         function testSimplePost() {
