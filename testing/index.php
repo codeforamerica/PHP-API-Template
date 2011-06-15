@@ -13,4 +13,4 @@ require_once dirname(__FILE__) . '/simpletest/autorun.php';
 
 $group = new TestSuite('PHP API Testing');
 $group->addFile('./unit_APIBaseClass.php');
-$group->addFile('./TestOfApiClass.php');
+//$group->addFile('./TestOfApiClass.php');
