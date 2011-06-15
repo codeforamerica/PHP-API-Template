@@ -9,6 +9,8 @@
  * See the following page for API documentation on SimpleTest:
  * http://www.simpletest.org/api/
  */
+require_once dirname(__FILE__) . '/simpletest/autorun.php';
 
-require_once './unit_APIBaseClass.php';
-require_once './TestOfApiClass.php';
+$group = new TestSuite('PHP API Testing');
+$group->addFile('./unit_APIBaseClass.php');
+$group->addFile('./TestOfApiClass.php');

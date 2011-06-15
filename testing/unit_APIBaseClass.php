@@ -34,19 +34,19 @@ class UnitTestAPIBaseClass extends UnitTestCase {
         $x->new_request($_SERVER['SERVER_NAME']);
         
         $input = array(
-          $_SERVER['REQUEST_URI'] . 'test_endpoint.php?endpoint=testing',
-          $_SERVER['REQUEST_URI'] . 'test_endpoint.php',
-          'test_endpoint.p=testing',
-          '',
-          0,
-          999,
-          array()
+            $_SERVER['REQUEST_URI'] . 'test_endpoint.php?endpoint=testing',
+            $_SERVER['REQUEST_URI'] . 'test_endpoint.php',
+            'test_endpoint.p=testing',
+            '',
+            0,
+            999,
+            array(),
         );
         
         foreach ($input as $i) {
             $resp = $x->get($i, '');
             // This fails as it makes calls to URL with integers in it
-            $this->assertIsA($resp, 'string');
+            $this->assertIsA($resp, 'string', 'get should return string.');
             // TO DO, check the format of this string
         }
     }
