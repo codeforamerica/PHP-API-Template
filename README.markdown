@@ -38,4 +38,4 @@ Use them in your api library class where needed
 
 Tests are utilizing SimpleTest for testing.  To run tests:
 
-1.  Go to `./testing/*.php` in the browser.
+1.  Go to `./testing/` in the browser.
