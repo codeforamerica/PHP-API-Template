@@ -30,7 +30,7 @@ class TestOfApiConnect extends UnitTestCase {
     		$api_vars = get_class_vars(get_class($this->api));
     		
     	foreach($api_vars as $key=>$value)
-    		$this->assertTrue($api->$key);
+    		$this->assertTrue($this->api->$key);
     }
 }
 ?>
