@@ -21,7 +21,10 @@ class TestOfApiClass extends UnitTestCase {
     	$query_path = $this->api->url;
     	$params = array('param1'=>'value1');
     	$return_param = 'param1';
-    
+    	// check for do query config file
+    	if(is_file('do_query_conf.php') && !class_exists('do_query_conf')){
+    		require('do_query_conf.php');
+    	}
     	// check for configuration class to do automated testing
     	if(class_exists('do_query_conf')){
     		foreach(do_query_conf::$_ as $item)
