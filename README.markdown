@@ -1,10 +1,9 @@
-Why
-===
- This library was created to help assist developers in writing api libraries that
- interact with open government api keys.
+## Why
+ 
+This library was created to help assist developers in writing api libraries that
+interact with open government api keys.
 
-Usage
-=====
+## Usage
 
 	include('APIBaseClass.php');
 	include('my_API_lib.php');
@@ -13,26 +12,30 @@ Usage
         // or
         new my_API_lib();
  
-How to Write your API Classes
-=============================
+## How to Write your API Classes
 
-- Your class must be the same name as your php file
-- Your class must extend APIBaseClass
+* Your class must be the same name as your php file
+* Your class must extend APIBaseClass
 
 	class my_API_lib extends APIBaseClass{...
 	
-- Your class must have a construct method that looks something like this:
+* Your class must have a construct method that looks something like this:
 
 	public function __construct($url)
 	{
 		self::new_request('http://myurl.com');
 	}
 	
-- Methods are 
-
- *get
- *post
- *put
- *delete
+* Methods are 
+  * get
+  * post
+  * put
+  * delete
  
-  Use them in your api library class where needed
+Use them in your api library class where needed
+  
+## Run Tests
+
+Tests are utilizing SimpleTest for testing.  To run tests:
+
+1.  Go to `./testing/*.php` in the browser.
