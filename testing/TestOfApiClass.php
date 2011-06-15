@@ -5,13 +5,45 @@ require_once('../APIBaseClass.php');
 // load your class here...
 require_once('../api_class_template.php');
 // the name of the api class is 'yourApi'
-class TestOfApiConnect extends UnitTestCase {
+class TestOfApiClass extends UnitTestCase {
    public $api;
     function testApiConstructs(){
     	$this->api = new yourApi();
     	// obviously will return false because these are private parameters
     	$this->check_class_params('_http _root',false);
     	$this->check_class_params('url',true);
+    }
+    // public function do_query($query_path,$params,$return_param)
+	
+    function testApi_do_query($mode=TRUE){
+    // load a file that can do the tests automagically so we don't have to write them in each time
+    // inlcude('do_query_conf.php') use a static associtiave array
+    	$query_path = $this->api->url;
+    	$params = array('param1'=>'value1');
+    	$return_param = 'param1';
+    
+    	// check for configuration class to do automated testing
+    	if(class_exists('do_query_conf')){
+    		foreach(do_query_conf::$_ as $item)
+        		$query = explode (' ', $item);
+        	if(count($query) == 3){
+        		if($mode == false)
+        			$this->assertFalse($query[0],$query[1],$query[2]);
+        		else
+        			$this->assertTrue($query[0],$query[1],$query[2]);
+        	}
+        	else{
+        	// cause a fail test if your conf file isn't written properly
+        		if($mode == false)
+        			$this->assertFalse(true);
+        		else
+        			$this->assertTrue(false);
+        	}
+        }else
+        	if($mode== false)
+    			$this->assertFalse($this->api->do_query($query_path,$params,$return_param));
+    		else 
+    			$this->assertTrue($this->api->do_query($query_path,$params,$return_param));
     }
     
     function check_class_params($params=NULL,$mode=TRUE){
