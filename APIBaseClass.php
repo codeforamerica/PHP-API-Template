@@ -68,6 +68,9 @@ class APIBaseClass {
 	
 	public function do_query($query_path,$params,$return_param)
 	{
+	// do some syntax cleanup if improperly written method call is made.
+		if(!is_string($query_path) || (!is_string($query_path) && !is_array($params) || (!is_string($return_param)))) return false;
+
 	// query path is location to api query, params is either a string (if only one param) or an
 	// associtative array, $return_param is the name of the parameter to lookfor and display...	
 		if(!is_array($params)){
