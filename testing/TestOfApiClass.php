@@ -56,25 +56,29 @@ class TestOfApiClass extends UnitTestCase {
 	   	Basically $params in an array
 	   	
     */
-    
-		if(!class_exists('do_query_conf') && pathinfo('do_query_conf.php')) include('do_query_conf.php');
+    // could use !file_exists as well but phpfog doesn't allow it in sharedapps env.
+		if(!class_exists('do_query_conf') && pathinfo('do_query_conf')) {
+			include('do_query_conf.php');
+    	}
+    	
     	if(class_exists('do_query_conf')){
-    		foreach(do_query_conf::$_ as $item)
+    		foreach(do_query_conf::$_ as $item){
         		$query = explode (' ', $item);
-        	if(count($query) == 3){
-        		if($mode == false)
-        			$this->assertFalse($this->api->do_query($query[0],$query[1],$query[2]));
-        		else
-        			$this->assertTrue($this->api->do_query($query[0],$query[1],$query[2]));
+	        	if(count($query) == 3){
+	        		if($mode == false)
+	        			$this->assertFalse($this->api->do_query($query[0],$query[1],$query[2]));
+	        		else
+	        			$this->assertTrue($this->api->do_query($query[0],$query[1],$query[2]));
+	        	}
+	        	else{
+	        	// cause a fail test if your conf file isn't written properly
+	        		if($mode == false)
+	        			$this->assertFalse(true);
+	        		elseif($mode == true)
+	        			$this->assertTrue(false);
+	        	}
         	}
-        	else{
-        	// cause a fail test if your conf file isn't written properly
-        		if($mode == false)
-        			$this->assertFalse(true);
-        		elseif($mode == true)
-        			$this->assertTrue(false);
-        	}
-        // if no config file present
+        // if no config file present make sure the passed parameters are the appropriate variable type
         }elseif(is_string($query_path)&&is_string($params)&&is_bool($mode)){
         	if($mode == false)
         	// may need to use something other than assertFalse/assertTrue to be more precise
