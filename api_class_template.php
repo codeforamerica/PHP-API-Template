@@ -1,21 +1,19 @@
 <?php
-
-/**
- The most bare bones API library example
- 
+/** 
+ *	The most bare bones API library example
+ *	Use _request(url,method,data-optional,headers-optional) to access the API
  */
-
  
 class yourApi extends APIBaseClass{
-	// move this to an external config file for best pratice
-	//
+
 	public static $api_key = '';
-	public static $api_url = 'http://yourapiurl.com';
+	public static $api_url = 'yourapiurl.com';
+	
 	public function __construct($url=NULL,$api_key=NULL)
 	{
 	// api key for now is optional, but will probably need to look into new_request to ensure the key
 	// is handled properly
-		self::new_request(($url?$url:self::$api_url));
+		parent::new_request(($url?$url:self::$api_url));
 	}
-
+	
 }

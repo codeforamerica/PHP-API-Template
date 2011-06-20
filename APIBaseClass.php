@@ -1,9 +1,9 @@
 <?php
 class APIBaseClass {
-	private $_root, $_http;
+	public $_root, $_http;
 	
 	// removing construct method to allow the APIBaseClass to make a 'new_request'
-	// api libraries extend this base class, and then call self::new_request('http://apikeyurl.com');
+	// api libraries extend this base class, and then call $this->new_request('http://apikeyurl.com');
 	
 	public function new_request($server, $http = false) {
 		$this->_root = $server;
@@ -15,7 +15,7 @@ class APIBaseClass {
 		}
 	}
 	
-	private function _request($path, $method, $data=false, $headers=false) {
+	public function _request($path, $method, $data=false, $headers=false) {
 		# URL encode any available data
         if ($data) $query = http_build_query($data);
 		
@@ -59,10 +59,10 @@ class APIBaseClass {
 		return $this->_request($path, 'DELETE', $data, $headers);
 	}
 	
-	private function _apiHelper($path, $params)
+	public function _apiHelper($path, $params)
 	{
 		$params['format'] = 'json';
-		$json = $this->get($path, $params, array('Accept: application/json'));
+		$json = $this->_request($path, 'GET', $params,  array('Accept: application/json'));
 		return $json == null ? null : json_decode($json, true);
 	}
 	
@@ -74,15 +74,14 @@ class APIBaseClass {
 	// query path is location to api query, params is either a string (if only one param) or an
 	// associtative array, $return_param is the name of the parameter to lookfor and display...	
 		if(!is_array($params)){
-		// allow developer to pass paramname<=>attribute might want to use something other than a comma for pair seperation
+	// allow developer to pass paramname<=>attribute might want to use something other than a comma for pair seperation
 			 foreach(explode(',',$params) as $key=>$value){
              	if($key==0)unset($params);
+    // separate each key value pair with commas, seperate the keyname from the value with a <=>		 	        
                 foreach(explode('<=>',$value) as $value2)
                 	$params [$value2[0]]=$value2[1];
-			 	// separate each key value pair with commas, seperate the keyname from the value with a <=>
 			 	}	
 			 }
-		
 		
 		$data = $this->_apiHelper($query_path, $params);
 		return ($data == null 
